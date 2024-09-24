@@ -4,9 +4,7 @@ const Emoji = Node.create({
   name: 'emoji',
 
   group: 'inline',
-
   inline: true,
-
   atom: true,
 
   addAttributes() {
