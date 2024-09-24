@@ -1,20 +1,32 @@
 import React from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import Emoji from './EmojiExtension';  // Import the Emoji extension
+import CodeBlock from '@tiptap/extension-code-block';
+import Emoji from './EmojiExtension';
+import './TiptapEditor.css'; 
 
 const TiptapEditor = () => {
   const editor = useEditor({
-    extensions: [StarterKit, Emoji],  // Add Emoji to the editor
-    content: '<p>Add some emojis!</p>',
+    extensions: [
+      StarterKit,
+      Emoji, 
+      CodeBlock.configure({
+        exitOnTripleEnter: true, 
+        languageClassPrefix: 'language-',
+      }),
+    ],
+    content: '',
   });
 
   return (
     <div>
-      <h2>Tiptap Editor with Emoji Extension</h2>
-      <EditorContent editor={editor} />
+      <h2>Tiptap Editor with CodeBlock and Emoji Extension</h2>
+
+      <div className="editor-container">
+        <EditorContent editor={editor} />
+      </div>
       <div style={{ marginTop: '10px' }}>
-        {/* Check if editor is available before inserting emojis */}
+
         <button onClick={() => editor && editor.chain().focus().insertEmoji('😊').run()}>Insert 😊</button>
         <button onClick={() => editor && editor.chain().focus().insertEmoji('🎉').run()}>Insert 🎉</button>
       </div>
